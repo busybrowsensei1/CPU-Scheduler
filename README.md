@@ -1,4 +1,4 @@
-# CPU Scheduler Simulation
+# CPU Scheduler 
 
 ## Project Description
 
@@ -28,3 +28,26 @@ This project is a CPU scheduler simulation implemented using C++, Flask, HTML, C
 
 5. Access the project in your web browser at http://localhost:5000
 
+
+## Internal Working
+
+Internally, the scheduling is performed using C++ programs that implement various scheduling algorithms. The application follows these steps:
+
+1. **Input Collection**: User inputs such as the number of processes, arrival times, serve(burst) times, and algorithm choice are collected via a GUI.
+2. **Data Processing**: The input data is formatted and sent to the server using Flask.
+3. **Algorithm Execution**: The corresponding C++ program for the chosen algorithm is executed with the provided input.
+4. **Display**: The output, along with calculated metrics, is displayed in the result section of the web application.
+
+## Output
+
+The application will display:
+
+- Scheduling information for each process, including Arrival Time, Serve(Burst) Time, Finish Time, Response Time, and Waiting Time.
+- Average Waiting Time: The average time a process spends waiting in the ready queue before its execution.
+- Throughput: The rate of completion of processes per unit time.
+- **Gantt Chart**: A visual representation of the scheduling of processes over time.
+
+
+## References
+
+- [CPU Scheduling in Operating Systems - GeeksforGeeks](https://www.geeksforgeeks.org/cpu-scheduling-in-operating-systems/)
