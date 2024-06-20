@@ -9,12 +9,12 @@ This project is a CPU scheduler simulation implemented using C++, Flask, HTML, C
 1. Clone the project repository from GitHub:
 
    ```bash
-   git clone https://github.com/your_username/CPU-Scheduler-Simulation.git
+   git clone https://github.com/busybrowsensei1/CPU-Scheduler
 
 2. Navigate to the project directory:
 
    ```bash
-   cd CPU-Scheduler-Simulation
+   cd CPU-Scheduler
 
 3. Install the required dependencies using pip:
 
@@ -46,6 +46,14 @@ The application will display:
 - Average Waiting Time: The average time a process spends waiting in the ready queue before its execution.
 - Throughput: The rate of completion of processes per unit time.
 - **Gantt Chart**: A visual representation of the scheduling of processes over time.
+
+## Learning Takeaways
+
+- **Understanding CPU scheduling algorithms and their implementations.**
+- **Working with Flask for web development and backend processing.**
+- **Integrating frontend technologies like HTML, CSS, and JavaScript for user interaction and visualization.**
+- **Using Chart.js library for creating dynamic charts and graphs in web applications.**
+- **Handling HTTP requests, form submissions, and rendering dynamic content in a web application.**
 
 
 ## References
