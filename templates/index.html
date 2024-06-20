@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU Scheduler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+</head>
+<body>
+    <h1></h1>
+    <form action="/schedule" method="post">
+        <label for="algorithm">Choose Algorithm:</label>
+        <select id="algorithm" name="algorithm">
+            <option value="fcfs">first come first serve(fcfs)</option>
+            <option value="priority">(highest priority first)</option>
+            <option value="sjf">shortest job first(SJF)</option>
+            <option value="srtf">shortest remaining time first(SRTF)</option>
+            <option value="round_robin">Round Robin(RR)</option>
+        </select><br>
+
+        <label for="n">Number of Processes:</label>
+        <input type="number" id="n" name="n" required><br>
+
+        <div id="processes">
+        </div>
+
+        <div id="quantum" style="display: none;">
+            <label for="quantum_time">Quantum Time:</label>
+            <input type="number" id="quantum_time" name="quantum"><br>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('algorithm').addEventListener('change', function() {
+            const quantumDiv = document.getElementById('quantum');
+            if (this.value === 'round_robin') {
+                quantumDiv.style.display = 'block';
+            } else {
+                quantumDiv.style.display = 'none';
+            }
+        });
+
+        document.getElementById('n').addEventListener('input', function() {
+            const processCount = this.value;
+            const processesDiv = document.getElementById('processes');
+            processesDiv.innerHTML = '';
+
+            for (let i = 1; i <= processCount; i++) {
+                const arrivalInput = document.createElement('input');
+                arrivalInput.type = 'number';
+                arrivalInput.name = `arrival_time`;
+                arrivalInput.placeholder = `Arrival time for process ${i}`;
+
+                const serveInput = document.createElement('input');
+                serveInput.type = 'number';
+                serveInput.name = `serve_time`;
+                serveInput.placeholder = `Serve time for process ${i}`;
+
+                processesDiv.appendChild(arrivalInput);
+                processesDiv.appendChild(serveInput);
+
+                if (document.getElementById('algorithm').value === 'priority') {
+                    const priorityInput = document.createElement('input');
+                    priorityInput.type = 'number';
+                    priorityInput.name = `priority`;
+                    priorityInput.placeholder = `Priority for process ${i}`;
+                    processesDiv.appendChild(priorityInput);
+                }
+
+                processesDiv.appendChild(document.createElement('br'));
+            }
+        });
+    </script>
+</body>
+</html>

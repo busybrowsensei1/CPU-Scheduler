@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU Scheduler Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Result</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Process</th>
+                    <th>Arrival Time</th>
+                    <th>Serve Time</th>
+                    <th>Finish Time</th>
+                    <th>Response Time</th>
+                    <th>Waiting Time</th>
+                    <th>Turnaround Time</th> <!-- New column for turnaround time -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for process in output %}
+                    <tr>
+                        <td>P{{ loop.index }}</td>
+                        <td>{{ process.arrival_time }}</td>
+                        <td>{{ process.serve_time }}</td>
+                        <td>{{ process.finish_time }}</td>
+                        <td>{{ process.response_time }}</td>
+                        <td>{{ process.waiting_time }}</td>
+                        <td>{{ process.turnaround_time }}</td> <!-- Display turnaround time -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p>Average Waiting Time: {{ average_waiting_time }}</p>
+        <p>Average Turnaround Time: {{ average_turnaround_time }}</p> <!-- Display average turnaround time -->
+        <p>Throughput: {{ throughput }} processes per unit time</p>
+
+        <h2>Gantt Chart</h2>
+        <canvas id="ganttChart"></canvas>
+        <script>
+            const ctx = document.getElementById('ganttChart').getContext('2d');
+
+            // Find the finish time of the last process
+            const lastFinishTime = Math.max({% for process in gantt_chart %}{{ process.finish_time }}, {% endfor %} 0);
+
+            const data = {
+                labels: [{% for process in gantt_chart %}'P{{ process.id }}', {% endfor %}],
+                datasets: [
+                    {
+                        label: 'Execution Time',
+                        data: [
+                            {% for process in gantt_chart %}
+                            {
+                                start: {{ process.start_time }},
+                                end: {{ process.finish_time }},
+                                y: 'P{{ process.id }}'
+                            },
+                            {% endfor %}
+                        ],
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: lastFinishTime
+                        },
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const startTime = context.raw.start;
+                                    const finishTime = context.raw.end;
+                                    return `P${context.dataIndex + 1}: Start Time: ${startTime}, Finish Time: ${finishTime}`;
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    beforeDatasetsDraw: chart => {
+                        const ctx = chart.ctx;
+                        chart.data.datasets.forEach(dataset => {
+                            dataset.data.forEach((dataPoint, index) => {
+                                const model = chart.getDatasetMeta(0).data[index];
+                                const barStart = chart.scales.x.getPixelForValue(dataPoint.start);
+                                const barEnd = chart.scales.x.getPixelForValue(dataPoint.end);
+                                const barWidth = barEnd - barStart;
+                                const yPos = model.y - model.height / 2;
+                                const barHeight = model.height;
+                                ctx.fillStyle = dataset.backgroundColor;
+                                ctx.fillRect(barStart, yPos, barWidth, barHeight);
+                            });
+                        });
+                    }
+                }]
+            };
+
+            new Chart(ctx, config);
+        </script>
+
+        <div class="back-link">
+            <a href="/">Go back</a>
+        </div>
+    </div>
+</body>
+</html>

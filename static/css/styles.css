@@ -1,0 +1,138 @@
+
+/* Reset styles */
+body, html {
+    font-family: 'Comic Sans MS', cursive; /* Changed font to Comic Sans MS */
+    margin: 0;
+    padding: 0;
+    background-color: #1f1f1f; /* Dark background color */
+    color: #ccc; /* Light text color */
+}
+
+h1 {
+    text-align: center;
+    color: #fff; /* White heading text color */
+    font-size: 36px;
+    margin-top: 40px;
+    animation: scaleUp 0.5s ease forwards; /* Scale-up animation for heading */
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #333; /* Dark container background color */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Added transition for container */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ccc; /* Light label text color */
+}
+
+input[type="number"],
+select {
+    width: calc(100% - 16px);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #555; /* Dark border color for input fields */
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333; /* Dark text color for input fields */
+    animation: slideIn 0.5s ease forwards; /* Slide-in animation for inputs and select */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    animation: slideIn 0.5s ease forwards; /* Slide-in animation for button */
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+#error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+table, th, td {
+    border: 1px solid #555; /* Dark border color for table */
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #444; /* Dark background color for even rows */
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.back-link a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
